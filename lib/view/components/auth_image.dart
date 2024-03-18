@@ -7,6 +7,6 @@ class AuthImageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Center(child: Image.asset(MyImages.logo,height: MediaQuery.of(context).size.height*.07,width: MediaQuery.of(context).size.width*.6,fit: BoxFit.fill,));
+    return  Center(child: Image.asset(MyImages.logo, height: MediaQuery.of(context).size.height * .18,width: MediaQuery.of(context).size.width *.7,fit: BoxFit.fill,));
   }
 }

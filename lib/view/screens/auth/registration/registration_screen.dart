@@ -1,11 +1,9 @@
 import 'dart:io';
-
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:play_lab/view/components/buttons/rounded_loading_button.dart';
-
 import '../../../../constants/my_strings.dart';
 import '../../../../core/route/route.dart';
 import '../../../../core/utils/dimensions.dart';
@@ -27,8 +25,6 @@ import '../../../components/from_errors.dart';
 import '../../../components/buttons/rounded_button.dart';
 import '../../../components/text_field_container2.dart';
 
-
-
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({Key? key}) : super(key: key);
 
@@ -39,12 +35,13 @@ class RegistrationScreen extends StatefulWidget {
 class _RegistrationScreenState extends State<RegistrationScreen> {
   @override
   void initState() {
-
     MyUtil.changeTheme();
     Get.put(ApiClient(sharedPreferences: Get.find()));
-    Get.put(GeneralSettingRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
+    Get.put(GeneralSettingRepo(
+        apiClient: Get.find(), sharedPreferences: Get.find()));
     Get.put(SignupRepo(apiClient: Get.find()));
-    Get.put(SignUpController(signupRepo: Get.find(), sharedPreferences: Get.find()));
+    Get.put(SignUpController(
+        signupRepo: Get.find(), sharedPreferences: Get.find()));
 
     super.initState();
   }
@@ -69,7 +66,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             }
           },
           child: Scaffold(
-            backgroundColor: Colors.transparent,
+            backgroundColor: Color(0xff4a7ffc),
             appBar: PreferredSize(
               preferredSize: Size.fromHeight(AppBar().preferredSize.height),
               child: CustomBackSupportAppBar(
@@ -81,54 +78,83 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             ),
             body: GetBuilder<SignUpController>(
               builder: (controller) => SingleChildScrollView(
-                padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                 child: Column(
                   children: [
                     Column(
                       children: [
                         SizedBox(
-                          height: MediaQuery.of(context).size.height*.02,
+                          height: MediaQuery.of(context).size.height * .02,
                         ),
                         const AuthImageWidget(),
                         SizedBox(
-                          height: MediaQuery.of(context).size.height*.05,
+                          height: MediaQuery.of(context).size.height * .05,
                         ),
-
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Platform.isAndroid?Expanded(
-                              child: SocialLoginButton(
-                                bg: MyColor.gmailColor,
-                                text:MyStrings.google,
-                                press: (){
-                                  controller.signInWithGoogle();
-                                },imageSize: 30,fromAsset:true,isIcon:false,padding: 0,circleSize: 30,imageUrl: MyImages.gmailIcon,),
-                            ):const SizedBox.shrink(),
+                            Platform.isAndroid
+                                ? Expanded(
+                                    child: SocialLoginButton(
+                                      bg: MyColor.gmailColor,
+                                      text: MyStrings.google,
+                                      press: () {
+                                        controller.signInWithGoogle();
+                                      },
+                                      imageSize: 30,
+                                      fromAsset: true,
+                                      isIcon: false,
+                                      padding: 0,
+                                      circleSize: 30,
+                                      imageUrl: MyImages.gmailIcon,
+                                    ),
+                                  )
+                                : const SizedBox.shrink(),
                             const SizedBox(width: Dimensions.space15),
                             /*CircleButtonWithIcon(press: (){
                                auth.signInWithApple();
                              },imageSize: 30,fromAsset:true,isIcon:false,padding: 0,circleSize: 30,imageUrl: MyImages.appleIcon,),
                              const SizedBox(width: Dimensions.space15),*/
-                            Expanded(child:  SocialLoginButton(
-                                bg: MyColor.fbColor,
-                                text:MyStrings.facebook,
-                                press: (){
-                                  controller.signInWithFacebook();
-                                },imageSize: 30,isIcon:false,fromAsset:true,padding: 0,circleSize: 30,imageUrl: MyImages.fbIcon)),
+                            Expanded(
+                                child: SocialLoginButton(
+                                    bg: MyColor.fbColor,
+                                    text: MyStrings.facebook,
+                                    press: () {
+                                      controller.signInWithFacebook();
+                                    },
+                                    imageSize: 30,
+                                    isIcon: false,
+                                    fromAsset: true,
+                                    padding: 0,
+                                    circleSize: 30,
+                                    imageUrl: MyImages.fbIcon)),
                           ],
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * .02,
+                        ),
                         Row(
                           children: [
-                            const Expanded(child: Divider(color: MyColor.textColor,thickness: 1.2),),
-                            const SizedBox(width: 10,),
+                            const Expanded(
+                              child: Divider(
+                                  color: MyColor.textColor, thickness: 1.2),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
                             Text(MyStrings.or.tr),
-                            const SizedBox(width: 10,),
-                            const Expanded(child: Divider(color: MyColor.textColor,thickness: 1.2)),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Expanded(
+                                child: Divider(
+                                    color: MyColor.textColor, thickness: 1.2)),
                           ],
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height*.02,),
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height * .02,
+                        ),
                         CustomTextField(
                           fillColor: MyColor.textFiledFillColor,
                           controller: controller.userNameController,
@@ -139,14 +165,18 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           maxLines: 1,
                           onChanged: (value) {
                             if (value.isNotEmpty) {
-                              controller.removeError(error: MyStrings.kUserNameNullError);
+                              controller.removeError(
+                                  error: MyStrings.kUserNameNullError);
                             } else {
-                              controller.addError(error: MyStrings.kUserNameNullError);
+                              controller.addError(
+                                  error: MyStrings.kUserNameNullError);
                             }
                             if (value.toString().length < 6) {
-                              controller.addError(error: MyStrings.kShortUserNameError);
+                              controller.addError(
+                                  error: MyStrings.kShortUserNameError);
                             } else {
-                              controller.removeError(error: MyStrings.kShortUserNameError);
+                              controller.removeError(
+                                  error: MyStrings.kShortUserNameError);
                             }
 
                             return;
@@ -156,23 +186,28 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           height: 10,
                         ),
                         CustomTextField(
-                          fillColor: MyColor.textFiledFillColor,
-                          controller: controller.emailController,
-                          focusNode: controller.emailFocusNode,
-                          hintText: MyStrings.email,
-                          inputType: TextInputType.emailAddress,
-                          inputAction: TextInputAction.next,
-                          onChanged: (value) {
-                            if (value.isNotEmpty) {
-                              controller.removeError(error: MyStrings.kEmailNullError);
-                            } else {
-                              controller.addError(error: MyStrings.kEmailNullError);
-                            }
-                            if (MyStrings.emailValidatorRegExp.hasMatch(value)) {
-                              controller.removeError(error: MyStrings.kInvalidEmailError);
-                            } else {
-                              controller.addError(error: MyStrings.kInvalidEmailError);
-                            }
+                            fillColor: MyColor.textFiledFillColor,
+                            controller: controller.emailController,
+                            focusNode: controller.emailFocusNode,
+                            hintText: MyStrings.email,
+                            inputType: TextInputType.emailAddress,
+                            inputAction: TextInputAction.next,
+                            onChanged: (value) {
+                              if (value.isNotEmpty) {
+                                controller.removeError(
+                                    error: MyStrings.kEmailNullError);
+                              } else {
+                                controller.addError(
+                                    error: MyStrings.kEmailNullError);
+                              }
+                              if (MyStrings.emailValidatorRegExp
+                                  .hasMatch(value)) {
+                                controller.removeError(
+                                    error: MyStrings.kInvalidEmailError);
+                              } else {
+                                controller.addError(
+                                    error: MyStrings.kInvalidEmailError);
+                              }
                               return;
                             }),
                         const SizedBox(
@@ -184,39 +219,53 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             showCountryPicker(
                               context: context,
                               countryListTheme: CountryListThemeData(
-                                inputDecoration: InputDecoration(
-                                  labelText: MyStrings.search.tr,
-                                  contentPadding: const EdgeInsets.symmetric(vertical: 16, horizontal: 22),
-                                  disabledBorder:   OutlineInputBorder(
-                                    borderRadius: const BorderRadius.all(Radius.circular(4)),
-                                    borderSide: BorderSide(width: 1,color:MyColor.gbr),
-                                  ),
-                                  focusedBorder:  const OutlineInputBorder(
-                                    borderRadius: BorderRadius.all(Radius.circular(4)),
-                                    borderSide:  BorderSide(width: 1,color:MyColor.primaryColor),
-                                  ),
-                                  enabledBorder:  OutlineInputBorder(
-                                    borderRadius:  const BorderRadius.all(Radius.circular(4)),
-                                    borderSide: BorderSide(width: 1,color:MyColor.gbr),
-                                  ),
-                                  errorBorder:  const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                                      borderSide: BorderSide(width: 1,color: Colors.red)
-                                  ),
-                                  focusedErrorBorder:  const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(Radius.circular(4)),
-                                      borderSide:  BorderSide(width: 1,color: Colors.red)
-                                  ),
-                                  isDense: true,
-                                  hintText: MyStrings.search.tr,
-                                  hintStyle: mulishSemiBold.copyWith(color: MyColor.textColor),
-                                  labelStyle: mulishSemiBold.copyWith(color: MyColor.textColor),
-                                  fillColor: MyColor.transparentColor,
-                                  filled: true,)),
+                                  inputDecoration: InputDecoration(
+                                labelText: MyStrings.search.tr,
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 16, horizontal: 22),
+                                disabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4)),
+                                  borderSide:
+                                      BorderSide(width: 1, color: MyColor.gbr),
+                                ),
+                                focusedBorder: const OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(4)),
+                                  borderSide: BorderSide(
+                                      width: 1, color: MyColor.primaryColor),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4)),
+                                  borderSide:
+                                      BorderSide(width: 1, color: MyColor.gbr),
+                                ),
+                                errorBorder: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4)),
+                                    borderSide: BorderSide(
+                                        width: 1, color: Colors.red)),
+                                focusedErrorBorder: const OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(4)),
+                                    borderSide: BorderSide(
+                                        width: 1, color: Colors.red)),
+                                isDense: true,
+                                hintText: MyStrings.search.tr,
+                                hintStyle: mulishSemiBold.copyWith(
+                                    color: MyColor.textColor),
+                                labelStyle: mulishSemiBold.copyWith(
+                                    color: MyColor.textColor),
+                                fillColor: MyColor.transparentColor,
+                                filled: true,
+                              )),
                               showPhoneCode: true,
                               onSelect: (Country country) {
-                                controller.countryController.text = country.name;
-                                controller.setCountryNameAndCode(country.name, country.countryCode, country.phoneCode);
+                                controller.countryController.text =
+                                    country.name;
+                                controller.setCountryNameAndCode(country.name,
+                                    country.countryCode, country.phoneCode);
                               },
                             );
                           },
@@ -244,7 +293,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   TextFieldContainer2(
                                       fillColor: MyColor.textFiledFillColor,
                                       isShowSuffixView: true,
-                                      prefixWidgetValue:'+${controller.mobileCode ?? ' '}',
+                                      prefixWidgetValue:
+                                          '+${controller.mobileCode ?? ' '}',
                                       child: CustomTextFieldForPhone(
                                         controller: controller.mobileController,
                                         focusNode: controller.mobileFocusNode,
@@ -253,9 +303,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                         hintText: MyStrings.phoneNumber,
                                         onChanged: (value) {
                                           if (value.isNotEmpty) {
-                                            controller.removeError(error: MyStrings.kPhoneNumberNullError);
+                                            controller.removeError(
+                                                error: MyStrings
+                                                    .kPhoneNumberNullError);
                                           } else if (value.isEmpty) {
-                                            controller.addError(error: MyStrings.kPhoneNumberNullError);
+                                            controller.addError(
+                                                error: MyStrings
+                                                    .kPhoneNumberNullError);
                                           }
                                           return;
                                         },
@@ -277,14 +331,20 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             inputType: TextInputType.text,
                             onChanged: (value) {
                               if (value.isNotEmpty) {
-                                controller.removeError(error: MyStrings.kPassNullError);
+                                controller.removeError(
+                                    error: MyStrings.kPassNullError);
                               } else {
-                                controller.addError(error: MyStrings.kPassNullError);
+                                controller.addError(
+                                    error: MyStrings.kPassNullError);
                               }
-                              if (controller.isValidPassword(controller.passwordController.text.toString())) {
-                                controller.removeError(error: MyStrings.kInvalidPassError);
+                              if (controller.isValidPassword(controller
+                                  .passwordController.text
+                                  .toString())) {
+                                controller.removeError(
+                                    error: MyStrings.kInvalidPassError);
                               } else {
-                                controller.addError(error: MyStrings.kInvalidPassError);
+                                controller.addError(
+                                    error: MyStrings.kInvalidPassError);
                               }
                               return;
                             }),
@@ -302,11 +362,15 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                             onChanged: (value) {
                               if (controller.passwordController.text.isEmpty) {
                                 return;
-                              } else if (controller.passwordController.text.toString() == value) {
-                                controller.removeError(error: MyStrings.kMatchPassError);
+                              } else if (controller.passwordController.text
+                                      .toString() ==
+                                  value) {
+                                controller.removeError(
+                                    error: MyStrings.kMatchPassError);
                                 return;
                               } else {
-                                controller.addError(error: MyStrings.kMatchPassError);
+                                controller.addError(
+                                    error: MyStrings.kMatchPassError);
                                 return;
                               }
                             }),
@@ -318,9 +382,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 children: [
                                   SizedBox(
                                     child: Checkbox(
-                                        side: MaterialStateBorderSide.resolveWith(
-                                            (states) => const BorderSide(
-                                        width: 2, color: Colors.white)),
+                                        side:
+                                            MaterialStateBorderSide.resolveWith(
+                                                (states) => const BorderSide(
+                                                    width: 2,
+                                                    color: Colors.white)),
                                         activeColor: MyColor.primaryColor,
                                         value: controller.agreeTC,
                                         onChanged: (value) {
@@ -336,11 +402,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                             text: MyStrings.policies.tr,
                                             recognizer: TapGestureRecognizer()
                                               ..onTap = () {
-                                                Get.toNamed(RouteHelper.privacyScreen);
+                                                Get.toNamed(
+                                                    RouteHelper.privacyScreen);
                                               },
                                             style: mulishBold.copyWith(
                                                 color: Colors.red,
-                                                decoration: TextDecoration.underline)),
+                                                decoration:
+                                                    TextDecoration.underline)),
                                       ])))
                                 ],
                               )

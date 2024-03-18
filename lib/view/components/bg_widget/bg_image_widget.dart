@@ -11,7 +11,7 @@ class MyBgWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return  ShaderMask(
       shaderCallback: (bounds) =>  LinearGradient(
-        colors: [Colors.black.withOpacity(.9), Colors.black.withOpacity(.9)],
+        colors: [Colors.black.withOpacity(.1), Colors.black.withOpacity(.1)],
         begin: Alignment.bottomCenter,
         end: Alignment.center,
       ).createShader(bounds),
